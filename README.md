@@ -16,6 +16,8 @@
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-target](https://github.com/qbcore-framework/qb-target)
 - [qb-input](https://github.com/qbcore-framework/qb-input)
+- [ox_lib](https://github.com/overextended/ox_lib)
+- [ox_target](https://github.com/overextended/ox_target)
 
 ## INSTALL
 
