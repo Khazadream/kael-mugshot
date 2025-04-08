@@ -1,5 +1,5 @@
 Config = {
-    Debug = true,
+    Debug = false,
     Core ="qb-core",  -- same for qbcore and qbox core
     Target = "ox_target", -- ox_target or qb-target
     Input = "ox_lib" -- qb-input or ox_lib
