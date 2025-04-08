@@ -32,7 +32,7 @@ CreateThread(function()
                     label = 'Take Shot',
                     icon = 'fas fa-clipboard-list',
                     event = 'kael-mugshot:Client:mugshotinput',
-                    job = Config.PoliceJobName
+                    groups = Config.PoliceJobName
                 }
             }
         })
