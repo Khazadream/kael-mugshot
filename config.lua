@@ -1,13 +1,13 @@
 Config = {
-    Debug = true,
-    Core ="qb-core",
-    Target = "qb-target",
-    Input = "qb-input"
+    Debug = false,
+    Core ="qb-core",  -- same for qbcore and qbox core
+    Target = "ox_target", -- ox_target or qb-target
+    Input = "ox_lib" -- qb-input or ox_lib
 }
 
 Config.PoliceJobName = "police"
 Config.BoardHeader = "Your Server Name"
-Config.TargetLoc = vector3(473.01, -1012.57, 26.27)
+Config.TargetLoc = vector3(473.04, -1018.74, 28.1)
 Config.MugShotCoords = vector3(472.92, -1011.49, 25.27)
 Config.MugShotHeading = 183.55
 Config.CameraPos = {
@@ -16,6 +16,6 @@ Config.CameraPos = {
 }
 Config.Distance = 30.0  
 
-Config.LogTitle = "Kael Mugshot"
-Config.LogName = "Kael Mugshot"
-Config.LogIcon = "https://cdn.discordapp.com/attachments/1026588960207667321/1114942675951562844/border-01-tebex.png"
+Config.LogTitle = "Mugshot"
+Config.LogName = "Mugshot"
+Config.LogIcon = ""
