@@ -1,78 +1,5 @@
 local QBCore = exports[Config.Core]:GetCoreObject()
 
-CreateThread(function()
-    if Config.Target == 'qb-target' then
-        exports['qb-target']:AddBoxZone('Mugshottarget', vector3(Config.TargetLoc.x, Config.TargetLoc.y, Config.TargetLoc.z), 0.1, 0.3, {
-            name = "Mugshottarget",
-            debugPoly = Config.Debug,
-            minZ = Config.TargetLoc.z - 1,
-            maxZ = Config.TargetLoc.z + 1,
-        }, {
-            options = {
-                {  
-                    event = "kael-mugshot:Client:mugshotinput",
-                    icon = "fas fa-clipboard-list",
-                    label = "Take Shot",
-                    job = Config.PoliceJobName,
-                },
-            },
-            distance = 1.5
-        })
-    elseif Config.Target == 'ox_target' then
-        exports.ox_target:addBoxZone({
-            name = 'Mugshottarget',
-            coords = vec3(Config.TargetLoc.x, Config.TargetLoc.y, Config.TargetLoc.z),
-            size = vec3(2, 2, 2), -- width, length, height (height = maxZ - minZ)
-            -- rotation = 0,
-            debug = Config.Debug,
-            drawSprite = true,
-            options = {
-                {
-                    name = 'mugshot_take',
-                    label = 'Take Shot',
-                    icon = 'fas fa-clipboard-list',
-                    event = 'kael-mugshot:Client:mugshotinput',
-                    groups = Config.PoliceJobName
-                }
-            }
-        })
-    end
-end)
-
-RegisterNetEvent("kael-mugshot:Client:mugshotinput", function()
-
-    if Config.Input == 'qb-input' then
-        local picture = exports['qb-input']:ShowInput({
-            header = "Mugshot Input",
-            submitText = "Take Mugshot",
-            inputs = {
-                {
-                    text = "Citizen ID (#)",
-                    name = "citizenid",
-                    type = "text",
-                    isRequired = true,
-                },
-            },
-        })
-        TriggerServerEvent("kael-mugshot:server:takemugshot", picture.citizenid)
-
-    elseif Config.Input == 'ox_lib' then
-        local input = lib.inputDialog('Mugshot Input', {
-            { type = 'input', label = 'Citizen ID (#)', name = 'citizenid', required = true }
-        }, {
-            useName = true
-        })
-        local val
-        if not input then return end
-        if input then
-            val = input[1]
-        end
-        local picture = val
-        TriggerServerEvent("kael-mugshot:server:takemugshot", picture)
-    end
-
-end)
-
 RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer)
 	local InProgress = true
 	local PlayerPed = PlayerPedId()
@@ -107,10 +34,10 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer)
     PushScaleformMovieFunctionParameterInt(math.random(000, 999))
     PushScaleformMovieFunctionParameterInt(116)
     EndScaleformMovieMethod()
-	local MugCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
-	SetCamCoord(MugCam, Config.CameraPos.pos)
-    SetCamRot(MugCam, Config.CameraPos.rotation, 2)
-    RenderScriptCams(1, 0, 0, 1, 1)
+	-- local MugCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
+	-- SetCamCoord(MugCam, Config.CameraPos.pos)
+    -- SetCamRot(MugCam, Config.CameraPos.rotation, 2)
+    -- RenderScriptCams(1, 0, 0, 1, 1)
     Wait(250)
 	CreateThread(function()
         FreezeEntityPosition(PlayerPed, true)
@@ -138,18 +65,18 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer)
 	LoadAnimDict("mp_character_creation@lineup@male_a")
 	TaskPlayAnim(PlayerPed, "mp_character_creation@lineup@male_a", "loop_raised", 8.0, 8.0, -1, 49, 0, false, false, false)
     Wait(1000)
-	QBCore.Functions.TriggerCallback('kael-mugshot:server:GetWebhook', function(Hook)
-        if Hook then
-            exports['screenshot-basic']:requestScreenshotUpload(tostring(Hook), 'files[]', {encoding = 'jpg'}, function(data)
-                local Response = json.decode(data)
-                local imageURL = Response.attachments[1].url
-				TriggerServerEvent('kael-mugshot:server:MugLog', officer, imageURL)
-            end)
-        end
-    end)
+	-- QBCore.Functions.TriggerCallback('kael-mugshot:server:GetWebhook', function(Hook)
+    --     if Hook then
+    --         exports['screenshot-basic']:requestScreenshotUpload(tostring(Hook), 'files[]', {encoding = 'jpg'}, function(data)
+    --             local Response = json.decode(data)
+    --             local imageURL = Response.attachments[1].url
+	-- 			TriggerServerEvent('kael-mugshot:server:MugLog', officer, imageURL)
+    --         end)
+    --     end
+    -- end)
     Wait(5000)
-	DestroyCam(MugCam, 0)
-    RenderScriptCams(0, 0, 1, 1, 1)
+	-- DestroyCam(MugCam, 0)
+    -- RenderScriptCams(0, 0, 1, 1, 1)
     SetFocusEntity(PlayerPed)
     ClearPedTasksImmediately(PlayerPed)
     FreezeEntityPosition(PlayerPed, false)

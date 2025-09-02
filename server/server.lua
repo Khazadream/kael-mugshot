@@ -12,7 +12,7 @@ RegisterNetEvent("kael-mugshot:server:takemugshot", function(targetid)
     local Target = QBCore.Functions.GetPlayer(TargetId)
     local Source = QBCore.Functions.GetPlayer(SourceId)
     if Target and Source then 
-        if TargetId ~= SourceId then
+        --if TargetId ~= SourceId then
             local sourceCoords = GetEntityCoords(GetPlayerPed(SourceId))
             local targetCoords = GetEntityCoords(GetPlayerPed(TargetId))
             local distance = #(sourceCoords - targetCoords)
@@ -21,9 +21,9 @@ RegisterNetEvent("kael-mugshot:server:takemugshot", function(targetid)
             else
                 TriggerClientEvent('QBCore:Notify', SourceId, "The Player is too far away to take a mugshot.", 'error')
             end
-        else 
-            TriggerClientEvent('QBCore:Notify', SourceId, "You can't take a mugshot of yourself.", 'error')
-        end
+        --else 
+        --    TriggerClientEvent('QBCore:Notify', SourceId, "You can't take a mugshot of yourself.", 'error')
+        --end
     else
         TriggerClientEvent('QBCore:Notify', SourceId, "Invalid Player ID.", 'error')
     end
