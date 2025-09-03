@@ -68,12 +68,10 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,
 	ClearPedWetness(PlayerPed)
 	ClearPedBloodDamage(PlayerPed)
 	AttachEntityToEntity(Board, PlayerPed, GetPedBoneIndex(PlayerPed, 28422), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 2, 1)	
-    if isOfficerSide then
-        RanderHandle = nil
-        InProgress = false
+    if not isOfficerSide then
+        LoadAnimDict("mp_character_creation@lineup@male_a")
+        TaskPlayAnim(PlayerPed, "mp_character_creation@lineup@male_a", "loop_raised", 8.0, 8.0, -1, 49, 0, false, false, false)
     end
-	LoadAnimDict("mp_character_creation@lineup@male_a")
-	TaskPlayAnim(PlayerPed, "mp_character_creation@lineup@male_a", "loop_raised", 8.0, 8.0, -1, 49, 0, false, false, false)
     Wait(1000)
 	-- QBCore.Functions.TriggerCallback('kael-mugshot:server:GetWebhook', function(Hook)
     --     if Hook then
@@ -88,9 +86,11 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,
     --Wait(5000)
 	-- DestroyCam(MugCam, 0)
     -- RenderScriptCams(0, 0, 1, 1, 1)
-    SetFocusEntity(PlayerPed)
-    ClearPedTasksImmediately(PlayerPed)
-    FreezeEntityPosition(PlayerPed, false)
+    if not isOfficerSide then
+        SetFocusEntity(PlayerPed)
+        ClearPedTasksImmediately(PlayerPed)
+        FreezeEntityPosition(PlayerPed, false)
+    end
     DeleteObject(Board)
     DeleteObject(BoardOverlay)
     RenderHandle = nil
