@@ -1,8 +1,11 @@
 local QBCore = exports[Config.Core]:GetCoreObject()
 
-RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,isOfficerSide)
+RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData, isOfficerSide)
 	local InProgress = true
 	local PlayerPed = PlayerPedId()
+    if isOfficerSide then
+        PlayerPed = GetPlayerPed(GetPlayerFromServerId(boardData.targetid))
+    end
 	local SuspectCoods = GetEntityCoords(PlayerPed)
 	local PlayerData = QBCore.Functions.GetPlayerData()
 	-- local CitizenId = PlayerData.citizenid

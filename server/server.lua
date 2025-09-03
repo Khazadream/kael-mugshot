@@ -21,11 +21,13 @@ RegisterNetEvent("kael-mugshot:server:takemugshot", function(targetid)
                     fullname = Target.PlayerData.charinfo.firstname .. ' ' .. Target.PlayerData.charinfo.lastname,
                     citizenid = Target.PlayerData.citizenid,
                     birthdate = Target.PlayerData.charinfo.birthdate,
+                    targetid = targetid,
                 })
                 TriggerClientEvent("kael-mugshot:client:takemugshot", SourceId, SourceId, {
                     fullname = Target.PlayerData.charinfo.firstname .. ' ' .. Target.PlayerData.charinfo.lastname,
                     citizenid = Target.PlayerData.citizenid,
                     birthdate = Target.PlayerData.charinfo.birthdate,
+                    targetid = targetid,
                 }, true)
             else
                 TriggerClientEvent('QBCore:Notify', SourceId, "The Player is too far away to take a mugshot.", 'error')
