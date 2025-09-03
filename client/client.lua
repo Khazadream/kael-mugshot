@@ -1,13 +1,16 @@
 local QBCore = exports[Config.Core]:GetCoreObject()
 
-RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer)
+RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,isOfficerSide)
 	local InProgress = true
 	local PlayerPed = PlayerPedId()
 	local SuspectCoods = GetEntityCoords(PlayerPed)
 	local PlayerData = QBCore.Functions.GetPlayerData()
-	local CitizenId = PlayerData.citizenid
-	local Name = PlayerData.charinfo.firstname.. " ".. PlayerData.charinfo.lastname
-	local DOB = PlayerData.charinfo.birthdate    
+	-- local CitizenId = PlayerData.citizenid
+	-- local Name = PlayerData.charinfo.firstname.. " ".. PlayerData.charinfo.lastname
+	-- local DOB = PlayerData.charinfo.birthdate    
+    local CitizenId = boardData.citizenid
+    local Name = boardData.fullname
+    local DOB = boardData.birthdate
     local ScaleformBoard = LoadScale("mugshot_board_01")
     local RenderHandle = CreateRenderModel("ID_Text", "prop_police_id_text")
 	CreateThread(function()
@@ -62,6 +65,10 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer)
 	ClearPedWetness(PlayerPed)
 	ClearPedBloodDamage(PlayerPed)
 	AttachEntityToEntity(Board, PlayerPed, GetPedBoneIndex(PlayerPed, 28422), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 2, 1)	
+    if isOfficerSide then
+        RanderHandle = nil
+        InProgress = false
+    end
 	LoadAnimDict("mp_character_creation@lineup@male_a")
 	TaskPlayAnim(PlayerPed, "mp_character_creation@lineup@male_a", "loop_raised", 8.0, 8.0, -1, 49, 0, false, false, false)
     Wait(1000)
