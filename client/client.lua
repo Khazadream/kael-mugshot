@@ -7,7 +7,7 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,
         PlayerPed = GetPlayerPed(GetPlayerFromServerId(boardData.targetid))
     end
 	local SuspectCoods = GetEntityCoords(PlayerPed)
-	local PlayerData = QBCore.Functions.GetPlayerData()
+	-- local PlayerData = QBCore.Functions.GetPlayerData()
 	-- local CitizenId = PlayerData.citizenid
 	-- local Name = PlayerData.charinfo.firstname.. " ".. PlayerData.charinfo.lastname
 	-- local DOB = PlayerData.charinfo.birthdate    
@@ -59,8 +59,8 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,
 	SetEntityHeading(PlayerPed, Config.MugShotHeading)
 	LoadModel("prop_police_id_board")
 	LoadModel("prop_police_id_text")
-	local Board = CreateObject("prop_police_id_board", SuspectCoods, true, true, false)
-	local BoardOverlay = CreateObject("prop_police_id_text", SuspectCoods, true, true, false)
+	local Board = CreateObject("prop_police_id_board", SuspectCoods, false, false, false)
+	local BoardOverlay = CreateObject("prop_police_id_text", SuspectCoods, false, false, false)
 	AttachEntityToEntity(BoardOverlay, Board, -1, 4103, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
 	SetModelAsNoLongerNeeded("prop_police_id_board")
 	SetModelAsNoLongerNeeded("prop_police_id_text")
