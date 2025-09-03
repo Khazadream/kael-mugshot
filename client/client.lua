@@ -37,7 +37,7 @@ RegisterNetEvent("kael-mugshot:client:takemugshot", function(officer, boardData,
     PushScaleformMovieMethodParameterString(CitizenId)
     PushScaleformMovieMethodParameterString(DOB)
     PushScaleformMovieFunctionParameterInt(0)
-    PushScaleformMovieFunctionParameterInt(math.random(000, 999))
+    PushScaleformMovieFunctionParameterInt(boardData.playerLevelCircle)
     PushScaleformMovieFunctionParameterInt(116)
     EndScaleformMovieMethod()
 	-- local MugCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
